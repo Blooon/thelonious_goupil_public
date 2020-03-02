@@ -1,0 +1,58 @@
+{
+  "name": "thelonious-goupil-website",
+  "version": "1.8.0",
+  "private": true,
+  "proxy": "http://localhost:3000/",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "bootstrap": "^4.3.1",
+    "braintree-web": "^2.32.1",
+    "env-cmd": "^8.0.2",
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.5.1",
+    "jsonp": "^0.2.1",
+    "paypal-rest-sdk": "^1.8.1",
+    "query-string": "^6.8.3",
+    "react": "^16.9.0",
+    "react-async-script-loader": "^0.3.0",
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-dom": "^16.9.0",
+    "react-flip-page": "^1.5.7",
+    "react-paypal-express-checkout": "^1.0.5",
+    "react-router-dom": "^5.1.2",
+    "react-router-hash-link": "^1.2.2",
+    "react-router-sitemap": "^1.2.0",
+    "react-scripts": "^3.1.2",
+    "react-slick": "^0.25.2",
+    "superagent": "^4.1.0"
+  },
+  "scripts": {
+    "copy_config": "cp ../main_config.js ./src/config.js && echo 'export default {adminComponents, Onces, languages}' >> ./src/config.js",
+    "sitemap": "babel-node ./sitemap/sitemap_generator.js",
+    "start": "npm run copy_config && npm run sitemap && env-cmd ../.env-dev  react-scripts start",
+    "build": "env-cmd ../.env-dev react-scripts build",
+    "build:prod": "env-cmd ../.env-prod react-scripts build",
+    "build:docker": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "dev": "export $(cat ../.env-prod | xargs) && node server_front.js",
+    "prod": "npm run killOld && npm run build:prod && npm run launchProd",
+    "launchProd": "export $(cat ../.env-prod | xargs) && nohup node server_front.js &!",
+    "killOld": "pkill -f 'node server_front.js'"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^2.0.1"
+  }
+}
